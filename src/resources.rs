@@ -28,6 +28,10 @@ impl Resources {
 
         None
     }
+
+    pub fn delete<T: Any>(&mut self) {
+        self.data.remove(&TypeId::of::<T>());
+    }
 }
 
 #[cfg(test)]
@@ -73,5 +77,17 @@ mod tests {
         world_width.0 -= 351.0;
 
         assert_eq!(resources.get_ref::<WorldWidth>().unwrap().0, 69.);
+    }
+
+    #[test]
+    fn delete_resource() {
+        let mut resources = Resources::default();
+        let world_width = WorldWidth(420.);
+
+        resources.add(world_width);
+
+        resources.delete::<WorldWidth>();
+
+        assert!(resources.get_ref::<WorldWidth>().is_none());
     }
 }
