@@ -1,14 +1,26 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use std::any::Any;
+
+use resources::Resources;
+
+mod resources;
+
+#[derive(Debug, Default)]
+pub struct World {
+    resources: Resources,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+impl World {
+    pub fn new() -> Self {
+        Self {
+            resources: Resources::default(),
+        }
+    }
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    pub fn add_resource(&mut self, resource: impl Any) {
+        self.resources.add(resource);
+    }
+
+    pub fn get_resource<T: Any>(&mut self) -> Option<&T> {
+        self.resources.get_ref::<T>()
     }
 }
