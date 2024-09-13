@@ -1,6 +1,6 @@
 use std::any::Any;
 
-use entities::Entities;
+use entities::{query::Query, Entities};
 use resources::Resources;
 
 mod entities;
@@ -42,5 +42,9 @@ impl World {
 
     pub fn create_entity(&mut self) -> &mut Entities {
         self.entities.create_entity()
+    }
+
+    pub fn query(&self) -> Query {
+        Query::new()
     }
 }

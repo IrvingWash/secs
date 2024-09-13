@@ -5,6 +5,8 @@ use std::{
     rc::Rc,
 };
 
+pub mod query;
+
 type Rra = Rc<RefCell<dyn Any>>;
 
 const COMPONENT_NOT_REGISTERED_MESSAGE: &str = "Failed to add a component, has it been registered?";
